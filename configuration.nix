@@ -9,6 +9,8 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # VPN comment out if you don't have
+      ./vpn/network-extole.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -19,6 +21,22 @@
   networking.hostName = "emu"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
+
+  networking.extraHosts = ''
+    52.3.248.63 vpn.intole.net
+    52.91.195.221 vpn.intole.net
+    54.86.141.200 vpn.intole.net
+  '';
+
+  services.dnsmasq.enable = true;
+  services.dnsmasq.extraConfig = ''
+    address=/.lo.intole.net/127.0.0.1
+    address=/.lo.extole.io/10.11.14.16
+    address=/.lo.vokate.com/10.11.14.16
+    address=/my-lo.extole.com/10.11.14.16
+    address=/tags-lo.extole.com/10.11.14.16
+    server=/.intole.net/10.1.0.2
+  '';
 
   # Select internationalisation properties.
   i18n = {
@@ -41,6 +59,8 @@
     vim
     git
     jq
+    zip
+    unzip
     chromium
     eclipses.eclipse-sdk
   ];
@@ -64,10 +84,6 @@
   services.xserver.enable = true;
   services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
-  #
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
 
   services.xserver.desktopManager.gnome3.enable = true;
   #services.xserver.videoDrivers = [ "nvidia" ];
