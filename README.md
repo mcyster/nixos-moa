@@ -23,5 +23,5 @@ Booted from a minimal Nixos image (17.03) on a USB stick
 
 Had problems with booting the installed image after using gdisk, so I switched to fdisk.
 
-This script bootstraps this machine: <nixos-bootstrap-setup>
+This script bootstraps this machine: [nixos-bootstrap-setup script](nixos-bootstrap-setup)
 
