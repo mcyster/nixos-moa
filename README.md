@@ -13,15 +13,17 @@ Making changes:
 * check changes, reboot if needed
 * `git add -A; git commit -m 'descriptive message'; git push origin master`
 
-## Other user configs
+## Setup
 
-<https://github.com/kragniz/configuration.nix/blob/master/configuration.nix> - Gnome3
-
-See <https://nixos.org/nixos/manual/index.html#sec-installation>
+Hardware
+- ASUS motherboard A6P6
+- 256 SSD
+- 3 x NVidia Gefore 210 Cards
 
 Booted from a minimal Nixos image (17.03) on a USB stick
 
 Had problems with booting the installed image after using gdisk, so I switched to fdisk.
 
-This script bootstraps this machine: [nixos-bootstrap-setup script](nixos-bootstrap-setup)
+This script bootstraps this machine: [nixos-bootstrap script](nixos-bootstrap)
 
+Currently only able to get 1 of the nvidia video cards working

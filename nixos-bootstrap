@@ -1,4 +1,5 @@
 #
+
 echo "Nixos bootstrap"
 uname -a
 
@@ -25,6 +26,8 @@ mount /dev/sda1 /mnt/boot
 swapon /dev/disk/by-label/swap
 
 nixos-generate-config --root /mnt
+
+sed -i  "/boot.loader.grub.device/c\ \ boot.loader.grub.device = \"$device\"" "/mnt/etc/nixos/configuration.nix"
 
 echo "nano /mnt/etc/nixos/configuration.nix"
 echo "nixos-install"
