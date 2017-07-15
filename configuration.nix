@@ -30,12 +30,8 @@
 
   services.dnsmasq.enable = true;
   services.dnsmasq.extraConfig = ''
-    address=/.lo.intole.net/127.0.0.1
-    address=/.lo.extole.io/10.11.14.16
-    address=/.lo.vokate.com/10.11.14.16
-    address=/my-lo.extole.com/10.11.14.16
-    address=/tags-lo.extole.com/10.11.14.16
     server=/.intole.net/10.1.0.2
+    conf-dir=/etc/dnsmasq.d
   '';
 
   # Select internationalisation properties.
@@ -65,6 +61,13 @@
     eclipses.eclipse-sdk
   ];
 
+  environment.interactiveShellInit = ''
+    export PATH="$PATH:$HOME/bin"
+
+    shopt -s histappend
+    shopt -s checkwinsize
+  '';
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -89,13 +92,22 @@
   #services.xserver.videoDrivers = [ "nvidia" ];
   #services.xserver.videoDrivers = [ "nvidiaBeta" ];
   services.xserver.videoDrivers = [ "nvidiaLegacy340" ];
-  
+
+  users.extraGroups.mcyster = {
+    gid = 2042;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.mcyster = {
      isNormalUser = true;
      uid = 2042;
+     group = "mcyster";
      extraGroups = [ "wheel" ];
   };
+
+
+  environment.variables.EDITOR = pkgs.lib.mkOverride 0 "vim";
+  programs.bash.enableCompletion = true;
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";

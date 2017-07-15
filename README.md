@@ -13,6 +13,10 @@ Making changes:
 * check changes, reboot if needed
 * `git add -A; git commit -m 'descriptive message'; git push origin master`
 
+Updating:
+
+*  `nixos-rebuild switch --upgrade`
+
 ## Setup
 
 Hardware
