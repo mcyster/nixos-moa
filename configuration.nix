@@ -28,11 +28,20 @@
     54.86.141.200 vpn.intole.net
   '';
 
+  # List services that you want to enable:
+
   services.dnsmasq.enable = true;
   services.dnsmasq.extraConfig = ''
     server=/.intole.net/10.1.0.2
     conf-dir=/etc/dnsmasq.d
   '';
+
+  services.nfs.server.enable = true;
+  services.nfs.server.exports = ''
+/home/mcyster/extole 10.11.14.16(insecure,rw,sync,no_subtree_check,all_squash,anonuid=2042,anongid=2042)
+  '';
+# UBuntu: /home/mcyster/extole 10.11.14.16(insecure,rw,sync,no_subtree_check,all_squash,anonuid=2042,anongid=2042)
+
 
   # Select internationalisation properties.
   i18n = {
@@ -53,6 +62,7 @@
     lshw
     lsof
     vim
+    #vim_configurable
     git
     jq
     zip
@@ -60,15 +70,6 @@
     chromium
     eclipses.eclipse-sdk
   ];
-
-  environment.interactiveShellInit = ''
-    export PATH="$PATH:$HOME/bin"
-
-    shopt -s histappend
-    shopt -s checkwinsize
-  '';
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -105,9 +106,10 @@
      extraGroups = [ "wheel" ];
   };
 
+  security.sudo.wheelNeedsPassword = false;
 
   environment.variables.EDITOR = pkgs.lib.mkOverride 0 "vim";
-  programs.bash.enableCompletion = true;
+  environment.variables.BROWSER = pkgs.lib.mkOverride 0 "chromium";
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
