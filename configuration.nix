@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -11,6 +7,7 @@
       ./hardware-configuration.nix
       # VPN comment out if you don't have
       ./vpn/network-extole.nix
+      ./tunnel-cyster-com.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -110,6 +107,8 @@
 
   environment.variables.EDITOR = pkgs.lib.mkOverride 0 "vim";
   environment.variables.BROWSER = pkgs.lib.mkOverride 0 "chromium";
+
+  programs.virtualbox.enable=true;          # prefer this was in shell.nix
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
