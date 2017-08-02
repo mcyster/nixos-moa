@@ -3,8 +3,7 @@ set -eu
 set -o pipefail
 
 directory=/etc/nixos
-configuration=$directory/configuration.nix
-host_configuration=$directory/$(hostname)/configuration.nix
+host_directory=$directory/$(hostname)
 
 message="${1:-}"
 if [ -z "$message" ]; then
@@ -12,12 +11,14 @@ if [ -z "$message" ]; then
     exit 1
 fi
 
-if [ -n "$(git diff "$host_configuration")" ]; then 
-    echo "Error there are local changes to $host_configuration"
-    exit 1
-fi
+for file in $(ls $host_directory); do
+    if [ -n "$(git diff "$host_directory/$file")" ]; then 
+      echo "Error there are local changes to $file"
+      exit 1
+    fi
+    cp $directory/$file $host_directory
+done
 
-cp $configuration $host_configuration
 git add -A
 git commit -m "$message"
 git push origin master

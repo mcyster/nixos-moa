@@ -3,14 +3,17 @@ set -eu
 set -o pipefail
 
 directory=/etc/nixos
-configuration=$directory/configuration.nix
-host_configuration=$directory/$(hostname)/configuration.nix
+host_directory=$directory/$(hostname)
 
-if ! diff $configuration $host_configuration >/dev/null; then
-    echo "Error: there are local changes to $configuration"
+for file in $(ls $host_directory); do
+  if ! diff $directory/$file $host_directory/$file >/dev/null; then
+    echo "Error: there are local changes to $directory/$file"
     exit 1
-fi
+  fi
+done
+
+exit 0
 
 git pull
-cp $host_configuration $configuration
+cp $host_directory/* $directory
 
