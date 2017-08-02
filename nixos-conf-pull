@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -eu
+set -o pipefail
+
+directory=/etc/nixos
+
+git pull
+cp $directory/"$(hostname)"/configuration.nix $directory/configuration.nix
+
