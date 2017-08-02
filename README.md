@@ -13,10 +13,12 @@ Split configuration into
 
 Making changes:
 
-* change configuration 
+* `cd /etc/nixos`
+* `./nixos-conf-pull`
+* # change configuration files 
 * `nixos-rebuild switch`
 * check changes, reboot if needed
-* `git add -A; git commit -m 'descriptive message'; git push origin master`
+* `./nixos-conf-push "message"`
 
 Updating:
 
@@ -34,6 +36,8 @@ Change channel:
 * `nixos-rebuild switch --upgrade`
 
 ## Setup
+
+# Host: emu
 
 Hardware
 - ASUS motherboard A6P6
