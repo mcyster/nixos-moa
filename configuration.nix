@@ -14,8 +14,22 @@
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+#  boot.loader.systemd-boot.enable = true;
+#  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.loader.systemd-boot.enable = false;
+
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    devices = [ "nodev" ];
+    configurationLimit = 5;
+    copyKernels = true;
+    efiInstallAsRemovable = true;
+    #efiSysMountPoint = "/boot/efi";
+  };
+  
+  boot.loader.efi.canTouchEfiVariables = false;
 
   networking.hostName = "moa"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -84,13 +98,12 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 
   # Enable sound with pipewire.
-  #sound.enable = true;
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true;
+    #alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;

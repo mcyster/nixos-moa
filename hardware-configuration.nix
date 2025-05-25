@@ -24,12 +24,18 @@
     
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f8025a95-87a9-4a11-b433-724ae7134e53";
+    { 
+      device = "/dev/disk/by-uuid/f8025a95-87a9-4a11-b433-724ae7134e53";
       fsType = "ext4";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/B8FB-220D";
+  #fileSystems."/boot" =
+  #  { device = "/dev/disk/by-uuid/B8FB-220D";
+  #    fsType = "vfat";
+  #  };
+  fileSystems."/boot/efi" =
+    { 
+      device = "/dev/disk/by-uuid/B8FB-220D";
       fsType = "vfat";
     };
 
