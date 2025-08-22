@@ -59,18 +59,17 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  services.desktopManager = {
+    gnome.enable = true;
+  };
+
+  services.displayManager.gdm = {
+    enable = true;
+    wayland = true;
+  };
+
   services.xserver = {
     enable = true;
-
-    displayManager.gdm = {
-      enable = true;
-      wayland = true;
-    };
-
-    desktopManager = {
-      gnome.enable = true;
-      xterm.enable = false;
-    };
 
     xkb = {
       layout = "us";
@@ -111,6 +110,11 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
