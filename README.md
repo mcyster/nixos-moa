@@ -1,7 +1,7 @@
 
-# Nixos config for `emu`
+# Nixos config for `moa`
 
-This is the `/etc/nixos` directory on  `emu`.
+This is the `/etc/nixos` directory on  `moa`.
 
 
 ## Restore Backup
@@ -10,7 +10,7 @@ This is the `/etc/nixos` directory on  `emu`.
 PAT=XXXXXXXXXXXXX   # PAT key from github
 
 cd /etc
-git clone "https://mcyster:$PAT@github.com/mcyster/nixos-emu.git" nixos
+git clone "https://mcyster:$PAT@github.com/mcyster/nixos-moa.git" nixos
 ```
 
 ## Update Backup
@@ -23,7 +23,7 @@ cd /etc/nixos
 # git add -A
 # git commit -m "Message"
 
-git push "https://mcyster:$PAT@github.com/mcyster/nixos-emu.git"
+git push "https://mcyster:$PAT@github.com/mcyster/nixos-moa.git"
 ```
 
 ## Generate a PAT
