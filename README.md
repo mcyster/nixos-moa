@@ -1,8 +1,19 @@
 
-# Nixos config for `moa`
+# NixOS config for `moa`
 
-This is the `/etc/nixos` directory on  `moa`.
+This is the `/etc/nixos` directory on `moa`, managed as a Nix flake.
 
+## Rebuild
+
+```
+sudo nixos-rebuild switch --flake /etc/nixos
+```
+
+## Full Upgrade
+
+```
+nix flake update --flake /etc/nixos && sudo nixos-rebuild switch --flake /etc/nixos
+```
 
 ## Restore Backup
 
@@ -30,10 +41,9 @@ git push "https://mcyster:$PAT@github.com/mcyster/nixos-moa.git"
 
 Goto [github tokens](https://github.com/settings/tokens)
 - Generate New Token
-  - Geneate new token (classic)
+  - Generate new token (classic)
     - Note: nixos-backup
     - Expiration: 30 days
     - Selected scopes: repo
     - Generate Token
-  - Copy token put in environment variable PAT
-
+  - Copy token, put in environment variable PAT

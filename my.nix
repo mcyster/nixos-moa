@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   services.pulseaudio.enable = false;
@@ -6,58 +6,74 @@
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    #alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
+    vim
+    mtr
+    traceroute
     tcpdump
     acpi
     dmidecode
+    pciutils
     lshw
     lsof
-    vim
+    procps
+    psmisc
+    fd
+    file
+    which
+    usbutils
     git
     jq
     zip
     unzip
-    zed-editor
+
+    direnv
+    tmux
+    screen
+    miller
+    ngrok
+
+    python3
+    poetry
+
     gimp
     google-chrome
-    zoom-us
-    ngrok
-    #python3
-    #poetry
-    #python310Packages.pyserial
-    usbutils
-    screen
+
     eclipses.eclipse-sdk
-    #vscode
-    miller
-    #pkgs.gnome.gnome-tweaks
-    ptyxis
-    zed-editor
+
     code-cursor
+    cursor-cli
+    ripgrep
+    mdcat
+
+    zoom-us
   ];
 
-  users.extraUsers.wal = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ];
-  };
-  users.extraUsers.bsmith = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ];
-  };
-  users.extraUsers.kaden = {
-     isNormalUser = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
-  environment.variables.EDITOR = pkgs.lib.mkOverride 0 "vim";
-  #environment.variables.BROWSER = pkgs.lib.mkOverride 0 "google-chrome";
+  virtualisation.docker.enable = true;
+
+  users.users.mcyster.extraGroups = [ "docker" ];
+
+  users.users.wal = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+  };
+
+  users.users.bsmith = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+  };
+
+  users.users.kaden = {
+    isNormalUser = true;
+  };
+
+  environment.variables.EDITOR = lib.mkForce "vim";
 }
