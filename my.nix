@@ -42,6 +42,8 @@
     gimp
     google-chrome
 
+    yad
+
     eclipses.eclipse-sdk
 
     code-cursor
