@@ -10,14 +10,6 @@ let
   };
 in
 {
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
-
   environment.systemPackages = with pkgs; [
     vim
     mtr
@@ -40,6 +32,7 @@ in
     unzip
 
     direnv
+    opencode
     tmux
     screen
     miller
@@ -63,7 +56,17 @@ in
     mdcat
 
     zoom-us
+
+    nvd
+    nix-index
+    comma
+    btop
   ];
+
+  programs.nh = {
+    enable = true;
+    flake = "/etc/nixos";
+  };
 
   programs.direnv = {
     enable = true;
@@ -79,7 +82,8 @@ in
 
   users.users.wal = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    description = "wal";
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
   users.users.bsmith = {
@@ -87,9 +91,18 @@ in
     extraGroups = [ "wheel" ];
   };
 
-  users.users.kaden = {
-    isNormalUser = true;
-  };
+  security.sudo.extraRules = [
+    {
+      users = [ "wal" ];
+      commands = [
+        { command = "ALL"; options = [ "NOPASSWD" ]; }
+      ];
+    }
+  ];
+
+  services.smartd.enable = true;
+
+  services.tailscale.enable = true;
 
   environment.variables.EDITOR = lib.mkForce "vim";
 }

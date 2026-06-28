@@ -35,8 +35,31 @@
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  services.xserver.xkb.layout = "us";
+
+  services.flatpak.enable = true;
+  services.printing.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  programs.firefox.enable = true;
+
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
